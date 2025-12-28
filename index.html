@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>瞬間reCAPTCHA反応速度ゲーム</title>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<style>
+  body {
+    font-family: sans-serif;
+    text-align: center;
+  }
+  #box {
+    position: absolute;
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+<h2>一瞬で通過する reCAPTCHAを押すだけのゲーム</h2>
+<p id="result">待機中…</p>
+
+<div id="box">
+  <div class="g-recaptcha"
+    data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+    data-callback="onPass">
+  </div>
+</div>
+
+<script>
+let startTime = 0;
+
+function showCaptcha() {
+  const box = document.getElementById("box");
+  box.style.left = Math.random() * (window.innerWidth - 300) + "px";
+  box.style.top = Math.random() * (window.innerHeight - 150) + "px";
+  box.style.display = "block";
+  startTime = performance.now();
+}
+
+function onPass() {
+  const time = (performance.now() - startTime).toFixed(0);
+  document.getElementById("result").textContent =
+    `通過！反応速度：${time} ms`;
+  document.getElementById("box").style.display = "none";
+
+  setTimeout(showCaptcha, 1500);
+}
+
+setTimeout(showCaptcha, 1000);
+</script>
+
+</body>
+</html>
