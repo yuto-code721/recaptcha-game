@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>50個reCAPTCHAタイル</title>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<style>
+  body {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+  .captcha-container {
+    width: 300px; /* reCAPTCHAの幅 */
+  }
+</style>
+</head>
+<body>
+<script>
+  // 50個のdivを生成
+  for (let i = 0; i < 50; i++) {
+    const div = document.createElement('div');
+    div.className = 'captcha-container';
+    div.id = 'recaptcha-' + i;
+    document.body.appendChild(div);
+
+    // reCAPTCHAをレンダリング
+    grecaptcha.render(div.id, {
+      'sitekey': '6Lfj3zksAAAAADFHfAJHnH3Q6vj0efRH88Mjwv90' // ここに自分のサイトキー
+    });
+  }
+</script>
+</body>
+</html>
